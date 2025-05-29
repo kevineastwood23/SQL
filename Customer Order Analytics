@@ -53,3 +53,34 @@ ON FEB.orderid=cust.order_id
 WHERE Feb.Quantity>2
 AND length(orderid) = 6
 AND orderid <> 'Order ID';
+
+--Filter orders through dates, 2-3-19 to 2-18-19.
+SELECT orderdate
+FROM BIT_DB.FebSales
+WHERE orderdate between '02/13/19 00:00' AND '02/18/19 00:00';
+
+--Filter orders through 2-18-29 at 1:35.
+SELECT location
+FROM BIT_DB.FebSales 
+WHERE orderdate = '02/18/19 01:35';
+
+--Filter order to show order date starting at 2-18-19. 
+SELECT sum(quantity)
+FROM BIT_DB.FebSales 
+WHERE orderdate like '02/18/19%';
+
+--Filter through the products to show all items that are Batteries.
+SELECT distinct Product
+FROM BIT_DB.FebSales
+WHERE Product like '%Batteries%';
+
+--Show all the different products that end in 99 cents.
+SELECT Distinct Product, Price
+FROM BIT_DB.FebSales 
+WHERE Price like '%.99';
+
+--List all the products sold in Los Angeles in February, and include how many of each were sold.
+Select Product, SUM(quantity)
+FROM BIT_DB.FebSales
+WHERE location like '%Los Angeles%'
+GROUP By Product;
